@@ -629,6 +629,157 @@ nav.scrolled {
     }
 }
 
+/* Blog Post Styles */
+.blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 6rem 2rem 4rem;
+}
+
+.post-header {
+    margin-bottom: 3rem;
+}
+
+.post-hero-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+}
+
+.post-meta h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--accent), #00ff88);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.post-date {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.post-tags {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.post-tags span {
+    background: var(--glass);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.post-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.post-content h2 {
+    font-size: 2rem;
+    margin: 3rem 0 1.5rem;
+    color: var(--accent);
+}
+
+.post-content h3 {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content ul, .post-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.post-content li {
+    margin-bottom: 0.5rem;
+}
+
+.post-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass);
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-details h3 {
+    margin-bottom: 0.5rem;
+}
+
+.author-details p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid var(--accent);
+    border-radius: 25px;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    background: var(--accent);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .post-meta h1 {
+        font-size: 2rem;
+    }
+    
+    .post-hero-image {
+        height: 250px;
+    }
+    
+    .post-navigation {
+        flex-direction: column;
+    }
+    
+    .nav-link {
+        text-align: center;
+    }
+    
+    .author-info {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
 
