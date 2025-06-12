@@ -15,6 +15,64 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Light theme variables */
+[data-theme="light"] {
+    --primary: #f8f9fa;
+    --accent: #ff6b6b;
+    --text: #2c3e50;
+    --text-secondary: #6c757d;
+    --glass: rgba(0, 0, 0, 0.1);
+    --shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Light theme specific adjustments */
+[data-theme="light"] .blog {
+    background: linear-gradient(135deg, rgba(248, 249, 250, 0.9) 0%, var(--primary) 100%);
+}
+
+[data-theme="light"] .about {
+    background: linear-gradient(135deg, var(--primary) 0%, rgba(248, 249, 250, 0.9) 100%);
+}
+
+[data-theme="light"] .hero-bg {
+    background: radial-gradient(circle at center, var(--accent) 0%, transparent 50%);
+    opacity: 0.05;
+}
+
+[data-theme="light"] .glitch {
+    text-shadow: 2px 2px 0px var(--accent);
+}
+
+[data-theme="light"] .nav-links a {
+    color: var(--text);
+}
+
+[data-theme="light"] .modal {
+    background: rgba(248, 249, 250, 0.95);
+}
+
+[data-theme="light"] .tagline-main {
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 50%, var(--text) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: 1px solid rgba(44, 62, 80, 0.1);
+}
+
+[data-theme="light"] .tagline-sub {
+    color: var(--text-secondary);
+}
+
+/* Dark theme variables (default) */
+[data-theme="dark"] {
+    --primary: #0a0a0a;
+    --accent: #ff6b6b;
+    --text: #ffffff;
+    --text-secondary: #cccccc;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: rgba(0, 0, 0, 0.5);
+}
+
 /* Base Styles */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -173,11 +231,67 @@ nav.scrolled {
     }
 }
 
-.tagline {
-    font-size: 1.5rem;
+/* Main tagline with gradient and glass effect */
+.tagline-main {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-top: 3rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 50%, var(--text) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    animation: taglineGlow 3s ease-in-out infinite alternate;
+    display: inline-block;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    min-height: 3rem;
+}
+
+/* Subtle glow animation */
+@keyframes taglineGlow {
+    0% {
+        box-shadow: 0 8px 32px rgba(255, 107, 107, 0.1);
+        transform: translateY(0);
+    }
+    100% {
+        box-shadow: 0 12px 40px rgba(255, 107, 107, 0.2);
+        transform: translateY(-2px);
+    }
+}
+
+/* Secondary tagline with elegant styling */
+.tagline-sub {
+    font-size: 1.2rem;
+    font-weight: 300;
     margin-top: 2rem;
-    opacity: 0.8;
-    letter-spacing: 0.2em;
+    opacity: 0.85;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    position: relative;
+    animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 0.85;
+        transform: translateY(0);
+    }
 }
 
 /* Gallery Section */
@@ -288,7 +402,7 @@ nav.scrolled {
 /* Blog Section */
 .blog {
     padding: 8rem 2rem;
-    background: linear-gradient(135deg, #1a1a1a 0%, var(--primary) 100%);
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, var(--primary) 100%);
 }
 
 .blog-grid {
@@ -359,7 +473,7 @@ nav.scrolled {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, rgba(26, 26, 26, 0.8) 100%);
 }
 
 .about-content {
@@ -578,8 +692,16 @@ nav.scrolled {
         font-size: 3rem;
     }
 
-    .tagline {
-        font-size: 1.2rem;
+    .tagline-main {
+        font-size: 1.5rem;
+        letter-spacing: 0.2em;
+        padding: 0.8rem 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .tagline-sub {
+        font-size: 1rem;
+        margin-top: 1.5rem;
     }
 
     .gallery-grid {
@@ -789,6 +911,18 @@ nav.scrolled {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+
+    .tagline-main {
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+
+    .tagline-sub {
+        animation: none !important;
+        opacity: 0.85 !important;
+        transform: none !important;
     }
 }
 

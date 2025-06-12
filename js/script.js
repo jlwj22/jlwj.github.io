@@ -284,9 +284,67 @@ function initMobileMenu() {
     }
 }
 
+// Theme switching functionality
+function initThemeSwitch() {
+    // Get current hour
+    const currentHour = new Date().getHours();
+    
+    // Determine theme based on time of day
+    // Light theme: 6 AM to 6 PM (6-18)
+    // Dark theme: 6 PM to 6 AM (18-6)
+    const isLightTime = currentHour >= 6 && currentHour < 18;
+    const theme = isLightTime ? 'light' : 'dark';
+    
+    // Apply theme to document
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    // Store theme in localStorage for consistency
+    localStorage.setItem('preferred-theme', theme);
+    localStorage.setItem('theme-set-time', Date.now().toString());
+    
+    console.log(`Theme set to ${theme} based on time: ${currentHour}:00`);
+}
+
+// Check and update theme periodically
+function checkThemeUpdate() {
+    const lastSetTime = localStorage.getItem('theme-set-time');
+    const currentTime = Date.now();
+    
+    // Update theme every hour (3600000 ms)
+    if (!lastSetTime || currentTime - parseInt(lastSetTime) > 3600000) {
+        initThemeSwitch();
+    }
+}
+
+// Subtle typing effect for main tagline
+function initTaglineEffect() {
+    const taglineMain = document.querySelector('.tagline-main');
+    if (taglineMain && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const originalText = taglineMain.textContent;
+        taglineMain.textContent = '';
+        taglineMain.style.opacity = '1';
+        
+        let i = 0;
+        const typeInterval = setInterval(() => {
+            taglineMain.textContent = originalText.slice(0, i + 1);
+            i++;
+            if (i >= originalText.length) {
+                clearInterval(typeInterval);
+            }
+        }, 100);
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
+    initThemeSwitch();
+    
+    // Add typing effect with slight delay after page load
+    setTimeout(initTaglineEffect, 1000);
+    
+    // Check for theme updates every 30 minutes
+    setInterval(checkThemeUpdate, 1800000);
     
     // Log performance metrics
     if ('performance' in window) {
