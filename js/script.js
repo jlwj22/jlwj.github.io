@@ -1,35 +1,3 @@
-// Custom cursor
-const cursor = document.querySelector('.cursor');
-const follower = document.querySelector('.cursor-follower');
-
-// Check if device supports hover (desktop vs mobile)
-const hasHover = window.matchMedia('(hover: hover)').matches;
-
-if (hasHover) {
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        
-        setTimeout(() => {
-            follower.style.left = e.clientX - 10 + 'px';
-            follower.style.top = e.clientY - 10 + 'px';
-        }, 100);
-    });
-
-    // Cursor effects on hover
-    const hoverElements = document.querySelectorAll('a, button, .gallery-item, input, textarea');
-    hoverElements.forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(1.5)';
-            follower.style.transform = 'scale(1.5)';
-        });
-        
-        element.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
-            follower.style.transform = 'scale(1)';
-        });
-    });
-}
 
 // Navbar scroll effect
 const navbar = document.getElementById('navbar');
@@ -335,10 +303,103 @@ function initTaglineEffect() {
     }
 }
 
+// Image Protection Functions
+function initImageProtection() {
+    // Disable right-click on images
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Disable drag and drop on images
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Disable common keyboard shortcuts for saving images
+    document.addEventListener('keydown', function(e) {
+        // Disable Ctrl+S, Ctrl+A, Ctrl+Shift+I, F12
+        if ((e.ctrlKey && (e.key === 's' || e.key === 'a')) || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            e.key === 'F12') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Add selection prevention to all images
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.setAttribute('draggable', 'false');
+        img.style.pointerEvents = 'none';
+    });
+}
+
+// Payment option interaction
+function initPaymentOptions() {
+    const paymentOptions = document.querySelectorAll('.payment-option');
+    
+    paymentOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const paymentMethod = this.querySelector('span').textContent;
+            
+            // Create a simple notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--glass);
+                backdrop-filter: blur(15px);
+                color: var(--text);
+                padding: 2rem;
+                border-radius: 15px;
+                border: 1px solid var(--accent);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                text-align: center;
+                max-width: 400px;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            notification.innerHTML = `
+                <h3 style="margin-bottom: 1rem; color: var(--accent);">Contact for ${paymentMethod}</h3>
+                <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Please use the contact form below or email me directly with your print selection and I'll send you ${paymentMethod} details.</p>
+                <button onclick="this.parentElement.remove()" style="
+                    background: var(--accent);
+                    color: white;
+                    border: none;
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-weight: 600;
+                ">Got it!</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        });
+    });
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initThemeSwitch();
+    initImageProtection();
+    initPaymentOptions();
     
     // Add typing effect with slight delay after page load
     setTimeout(initTaglineEffect, 1000);
