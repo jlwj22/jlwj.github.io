@@ -84,58 +84,6 @@ body {
     color: var(--text);
     overflow-x: hidden;
     line-height: 1.6;
-    cursor: none;
-}
-
-/* Subtle Cursor Animation */
-.cursor-glow {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.6;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    mix-blend-mode: screen;
-    transform: translate(-50%, -50%);
-}
-
-.cursor-glow::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(circle, rgba(255, 107, 107, 0.2) 0%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.6s ease;
-}
-
-/* Cursor hover effects */
-.cursor-glow.hover {
-    transform: translate(-50%, -50%) scale(1.5);
-    opacity: 0.8;
-}
-
-.cursor-glow.hover::before {
-    width: 60px;
-    height: 60px;
-    opacity: 0.4;
-}
-
-/* Hide cursor on touch devices */
-@media (hover: none) {
-    body {
-        cursor: auto;
-    }
-
-    .cursor-glow {
-        display: none;
-    }
 }
 
 
@@ -1189,13 +1137,6 @@ nav.scrolled {
         transform: none !important;
     }
 
-    .cursor-glow {
-        display: none !important;
-    }
-
-    body {
-        cursor: auto !important;
-    }
 }
 
 /* Print Styles */
