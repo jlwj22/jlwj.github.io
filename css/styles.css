@@ -84,6 +84,21 @@ body {
     color: var(--text);
     overflow-x: hidden;
     line-height: 1.6;
+    cursor: default;
+}
+
+/* Ensure cursor is always visible */
+* {
+    cursor: inherit;
+}
+
+/* Specific cursor styles for interactive elements */
+a, button, .filter-btn, .gallery-item, .blog-card, .payment-option, .submit-btn, .modal, .nav-links a {
+    cursor: pointer;
+}
+
+input, textarea {
+    cursor: text;
 }
 
 
@@ -1142,8 +1157,6 @@ nav.scrolled {
 /* Print Styles */
 @media print {
 
-    .cursor,
-    .cursor-follower,
     .float-element,
     nav,
     .filter-container,
