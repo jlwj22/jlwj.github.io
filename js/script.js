@@ -303,6 +303,43 @@ function initTaglineEffect() {
     }
 }
 
+// Subtle Cursor Animation
+function initSubtleCursor() {
+    const cursor = document.querySelector('.cursor-glow');
+    const hoverElements = document.querySelectorAll('a, button, .gallery-item, input, textarea, .filter-btn, .payment-option');
+    
+    // Check if device supports hover (desktop vs mobile)
+    const hasHover = window.matchMedia('(hover: hover)').matches;
+    
+    if (hasHover && cursor) {
+        // Move cursor to mouse position
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        
+        // Add hover effects
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+        
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '0.6';
+        });
+    }
+}
+
 // Image Protection Functions
 function initImageProtection() {
     // Disable right-click on images
@@ -398,6 +435,7 @@ function initPaymentOptions() {
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initThemeSwitch();
+    initSubtleCursor();
     initImageProtection();
     initPaymentOptions();
     
